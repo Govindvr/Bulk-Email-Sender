@@ -13,15 +13,15 @@ from googleapiclient.errors import HttpError
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/gmail.compose']
 
-# import csv
-# rows = []
-# with open("details.csv", 'r') as file:
-#     csvreader = csv.reader(file)
-#     header = next(csvreader)
-#     for row in csvreader:
-#         rows.append(row)
-# print(header)
-# print(rows)
+import csv
+rows = []
+with open("details.csv", 'r') as file:
+    csvreader = csv.reader(file)
+    header = next(csvreader)
+    for row in csvreader:
+        rows.append(row)
+print(header)
+print(rows)
 def main():
     """Shows basic usage of the Gmail API.
     Lists the user's Gmail labels.
@@ -64,13 +64,13 @@ def main():
         # msg="Hi This is a Test Mail"
         # message=create_message(sender,to,subject,msg)
         
-        # for r in rows:
-        #     to=r[0]
-        #     subject="Test Mail"
-        #     msg="Hi,{name} . Congratulations on being selected as the best Student of CET,Tvm\n".format(name=r[1])
-        #     msg+="Happy Day :)"
-        #     message=create_message(sender,to,subject,msg)
-        #     send_message(service,'me',message)
+        for r in rows:
+            to=r[0]
+            subject="Test Mail"
+            msg="Hi,{name} . Congratulations on being selected as the best Student of CET,Tvm\n".format(name=r[1])
+            msg+="Happy Day :)"
+            message=create_message(sender,to,subject,msg)
+            send_message(service,'me',message)
         
         # create_draft(service,'me',message)
         # send_message(service,'me',message)
