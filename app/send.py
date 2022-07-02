@@ -1,6 +1,6 @@
 from __future__ import print_function
 from email import message
-from app.send_mail import create_draft,create_message,send_message
+from send_mail import create_draft,create_message,send_message
 
 import os.path
 
@@ -13,10 +13,12 @@ from googleapiclient.errors import HttpError
 
 import csv
 
-def send():
+def send(filename):
     SCOPES = ['https://www.googleapis.com/auth/gmail.compose']
     rows = []
-    with open("uploads\details.csv", 'r') as file:
+    route = "app/uploads/" + filename
+    print(route)
+    with open(route, 'r') as file:
             csvreader = csv.reader(file)
             header = next(csvreader)
             for row in csvreader:
@@ -40,9 +42,9 @@ def send():
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 'app/credentials.json', SCOPES)
-            creds = flow.run_local_server(port=5000)
+            creds = flow.run_local_server(port=5500)
         # Save the credentials for the next run
-        with open('token.json', 'w') as token:
+        with open('app/token.json', 'w') as token:
             token.write(creds.to_json())
 
     try:
@@ -58,7 +60,7 @@ def send():
         # for label in labels:
         #     print(label['name'])
         
-        sender="manekshagayathri@gmail.com"
+        sender="govinddevika4@gmail.com"
        
         # to="temp200731@cet.ac.in"
         # subject="Test Mail"
@@ -81,4 +83,4 @@ def send():
 
 
 # if __name__ == '__main__':
-#     main()
+#     send("test_-_Sheet1.csv")
