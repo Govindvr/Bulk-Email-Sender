@@ -1,6 +1,6 @@
 from __future__ import print_function
 from email import message
-from send_mail import create_draft,create_message,send_message
+from app.send_mail import create_draft,create_message,send_message
 
 import os.path
 
@@ -13,7 +13,7 @@ from googleapiclient.errors import HttpError
 
 import csv
 
-def send(filename):
+def send(filename,mesg):
     SCOPES = ['https://www.googleapis.com/auth/gmail.compose']
     rows = []
     route = "app/uploads/" + filename
@@ -70,8 +70,9 @@ def send(filename):
         for r in rows:
             to=r[0]
             subject="Test Mail"
-            msg="Hi,{name} . Congratulations on being selected as the best Student of CET,Tvm\n".format(name=r[1])
-            msg+="Happy Day :)"
+            msg="Hi,{name} \n".format(name=r[1])
+            msg += mesg
+            msg+="\nRegards"
             message=create_message(sender,to,subject,msg)
             send_message(service,'me',message)
         

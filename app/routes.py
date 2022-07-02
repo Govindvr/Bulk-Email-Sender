@@ -1,3 +1,4 @@
+from email import message
 import os
 from app import app
 from flask import redirect, render_template, request, flash
@@ -23,11 +24,12 @@ def home():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            print(filename)
+            msg = request.form.get("message")
+            print(msg)
             send(filename)
             return "success"
         else:
             flash("Wrong file type")
-            return render_template("test.html")
+            return render_template("pg.html")
 
-    return render_template("test.html")
+    return render_template("pg.html")
