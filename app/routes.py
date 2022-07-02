@@ -25,8 +25,7 @@ def home():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             msg = request.form.get("message")
-            print(msg)
-            send(filename)
+            send(filename,msg)
             return "success"
         else:
             flash("Wrong file type")
