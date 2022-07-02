@@ -23,6 +23,8 @@ def home():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return "sucess"
-        return render_template("test.html")
+        else:
+            flash("Wrong file type")
+            return render_template("test.html")
 
     return render_template("test.html")
