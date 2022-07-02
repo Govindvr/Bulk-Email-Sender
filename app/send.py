@@ -1,6 +1,6 @@
 from __future__ import print_function
 from email import message
-from send_mail import create_draft,create_message,send_message
+from app.send_mail import create_draft,create_message,send_message
 
 import os.path
 
@@ -10,19 +10,20 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-# If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/gmail.compose']
 
 import csv
-rows = []
-with open("details.csv", 'r') as file:
-    csvreader = csv.reader(file)
-    header = next(csvreader)
-    for row in csvreader:
-        rows.append(row)
-print(header)
-print(rows)
-def main():
+
+def send():
+    SCOPES = ['https://www.googleapis.com/auth/gmail.compose']
+    rows = []
+    with open("uploads\details.csv", 'r') as file:
+            csvreader = csv.reader(file)
+            header = next(csvreader)
+            for row in csvreader:
+                rows.append(row)
+    print(header)
+    print(rows)
+    # If modifying these scopes, delete the file token.json.
     """Shows basic usage of the Gmail API.
     Lists the user's Gmail labels.
     """
@@ -79,5 +80,5 @@ def main():
         print(f'An error occurred: {error}')
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

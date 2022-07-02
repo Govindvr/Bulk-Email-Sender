@@ -2,6 +2,7 @@ import os
 from app import app
 from flask import redirect, render_template, request, flash
 from werkzeug.utils import secure_filename
+from app.send import send
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -22,7 +23,8 @@ def home():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return "sucess"
+            send()
+            return "success"
         else:
             flash("Wrong file type")
             return render_template("test.html")
